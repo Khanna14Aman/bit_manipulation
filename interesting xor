@@ -1,0 +1,50 @@
+question==>https://www.codechef.com/submit/IRSTXOR
+
+read editorial
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int c;
+        cin>>c;
+        vector<int>binary;
+        while(c!=0){
+            binary.emplace_back(c%2);
+            c = c/2;
+        }
+        reverse(binary.begin(),binary.end());
+        int flag = 0;
+        int n = binary.size();
+        int a[n],b[n];
+        a[0]=1;
+        b[0]=0;
+        for(int i = 1;i<n;i++){
+            
+                if(binary[i]&1){
+                    b[i]=1;
+                    a[i]=0;
+                }
+                else{
+                    a[i]=1;
+                    b[i]=1;
+                }
+        }
+        int aans = 0;
+        int bans=0;
+        for(int i = n-1;i>=0;i--){
+            if(a[i]==1){
+                aans = aans + pow(2,abs((n-1)-i));
+            }
+            if(b[i]==1){
+                bans = bans + pow(2,abs((n-1)-i));
+            }
+        }
+        cout<<aans*bans<<"\n";
+    }
+    return 0;
+}

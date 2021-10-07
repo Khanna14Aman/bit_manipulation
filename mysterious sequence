@@ -1,0 +1,129 @@
+question==>
+
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+#define fio ios_base::sync_with_stdio(false);cin.tie(NULL);
+
+#define int long long
+#define l long
+#define db long double
+#define str string
+
+#define pi pair<int,int>
+#define pd pair<db,db>
+#define ps pair<str,str>
+
+#define vi vector<int>
+#define vs vector<str>
+#define vb vector<bool>
+#define vd vector<db>
+#define vpi vector<pi>
+#define vpd vector<pd>
+#define vps vector<ps>
+
+#define mp make_pair
+#define f first
+#define s second
+
+#define sz(x) (x.size())
+#define bg(x) x.begin()
+#define ed(x) x.end()
+#define all(x) bg(x),ed(x)
+#define rall(x) x.rbegin(),x.rend()
+#define sor(x) sort(all(x))
+#define sord(x) sort(all(x),greater<int>())
+#define ins insert
+#define ft front()
+#define bk back()
+#define pb push_back
+#define eb emplace_back
+#define pf push_front
+#define rtn return
+
+#define lb lower_bound
+#define ub upper_bound
+#define bs binary_search
+
+
+#define for0(i,n) for(int i=0;i<n;i++)
+#define for1(i,n) for(int i=1;i<=n;i++)
+#define for1_(i,n) for(int i=1;i<n;i++)
+#define rof0(i,n) for(int i=n;i>=0;i--)
+#define rof1(i,n) for(int i=n;i>=1;i--)
+#define rof0_(i,n) for(int i=n-1;i>=0;i--)
+#define rof1_(i,n) for(int i=n-1;i>=1;i--)
+#define forin(i,j,a,n,m) for(int i=0;i<n;i++) for(int j =0;j<m;j++) cin>>a[i][j]
+#define foru(it,j) for(auto it : j)
+#define w(x) while(x--)
+#define wtc(t) int t;cin>>t;while(t--)
+
+int dx4[] = {-1,0,1,0};
+int dy4[] = {0,1,0,-1};
+int dx8[] = {-1,-1,0,1,1,1,0,-1};
+int dy8[] = {0,1,1,1,0,-1,-1,-1};
+
+const int mod = 1e9+7;
+const int infl = 1e18+5;
+const int inf = 2e5+5;
+
+#define minpqint priority_queue<int, vi, greater<int>>
+#define minpqpi priority_queue<pi,vpi,greater<pi>>
+#define maxpqint priority_queue<int>
+#define maxpqpi priority_queue<pi> 
+
+int powe(int base, int n)
+{
+	int ans = 1;
+	while(n)
+	{
+		if(n%2==0)
+		{
+			base = (base*base) % mod;
+			n /=2;
+		}
+		else
+		{
+			ans = (ans*base) % mod;
+			n -= 1;
+		}
+	}
+	return ans%mod;
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    wtc(t){
+        int n;
+        int modi = 100;
+        cin>>n;
+        int b[n];
+        for0(i,n){
+            cin>>b[i];
+        }
+        int flag=0;
+        	for(int i=0; i+1<n; ++i) {
+		if((b[i]&b[i+1])!=b[i]) {      // suppose b[0]=2 and b[1]=5 so in any case we cannot make 2^something==5 (it is impossible to make 2^something==5)
+			cout << "0\n";
+			flag=1;
+			break;
+		}
+	}
+	if(flag){
+	    continue;
+	}
+        if(n==1){
+            cout<<"1\n";
+            continue;
+        }
+        int ans = 1;
+        for0(i,n-1){
+            int x = __builtin_popcount(b[i]);    // if jth bit of element a[i] is set then at jth bit of a[i+1] can be set or unset (1/0) but if jth bit of a[i] is unset and jth bit of b[i+1] is set then jth bit of a[i+1]must be set or if jth bit of b[i+1] is unset then jth bit of a[i+1] should also be unset
+            ans = (ans*powe(2,x))%mod;           // example==>b[0]=2 and b[1]=6 then we know that 2^4==6 (010 ^ 100 == 110)
+        }
+        cout<<ans<<"\n";
+    }
+    rtn 0;
+}

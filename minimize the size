@@ -1,0 +1,60 @@
+question==>https://www.codechef.com/problems/MINSZ
+
+
+
+#include<bits/stdc++.h>
+#define int long long 
+using namespace std;
+
+int powe(int base, int n)
+{
+	int ans = 1;
+	while(n)
+	{
+		if(n%2==0)
+		{
+			base = (base*base);
+			n /=2;
+		}
+		else
+		{
+			ans = (ans*base);
+			n -= 1;
+		}
+	}
+    return ans;
+}
+
+
+signed main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int c;
+        cin>>c;
+        if(c==0){
+            cout<<"2\n1 1\n";
+            continue;
+        }
+        vector<int>v;
+        int flag=0;
+        int one=1;
+        for(int i=63;i>=0;i--){
+            if((c&(one<<i))==(flag&(one<<i))){
+                continue;
+            }
+            else{
+               // cout<<t<<" "<<i<<endl;
+                flag = flag^(powe(2,i+1)-1);
+                v.push_back(powe(2,i+1)-1);
+            }
+        }
+        cout<<v.size()<<"\n";
+        sort(v.begin(),v.end());
+        for(auto it:v){
+            cout<<it<<" ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
